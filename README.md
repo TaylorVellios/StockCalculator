@@ -5,6 +5,6 @@
 
 Using the yfinance and matplotlib libraries, this script takes user inputs (highlighted above) and returns the increase or decrease of an initial investment in any number of equities.
 
-'''Terminal
+'''
 $ pip install yahoo-finance
 '''
