@@ -91,7 +91,7 @@ def showchart(data,single_stock):
         plt.legend(single_stock, loc='upper left')
 
     plt.xticks([j for i,j in enumerate(x_vals) if i%for_xticks==0], rotation=50)
-    
+    plt.xlim(min([j for i,j in enumerate(x_vals) if i%for_xticks==0]),max([j for i,j in enumerate(x_vals) if i%for_xticks==0]))
     plt.ylabel('Price ($USD)')
     plt.grid(zorder=3)
     plt.title('Close Chart to See Results')
