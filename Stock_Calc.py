@@ -67,11 +67,35 @@ def ticker_dictionary(yfinancedata,tickerdic,investment):
     return (adj_price, num_shares)
 
 #----------FUNCTION TO USE MATPLOTLIB TO CHART GIVEN TICKERS
-def showchart(data):
-    data.Close.plot()
+def showchart(data,single_stock):
+
+    data_to_plot = data.reset_index()
+    for_xticks = len([i for i in data_to_plot['Date']])//10
+    x_vals = data_to_plot['Date']
+
+    multi = False
+    try:
+        [float(x) for x in data_to_plot['High']]
+    except:
+        multi=True
+
+
+    plt.figure(figsize=(12,8))
+    if multi==True:
+        for i in data_to_plot['High']:
+            y_val = data_to_plot['High'][i]
+            plt.plot(x_vals, y_val, linewidth=2.5)
+            plt.legend([i for i in data_to_plot['High']], loc='upper left')
+    else:
+        plt.plot(x_vals, data_to_plot['High'], linewidth=2.5)
+        plt.legend(single_stock, loc='upper left')
+
+    plt.xticks([j for i,j in enumerate(x_vals) if i%for_xticks==0], rotation=50)
+    
+    plt.ylabel('Price ($USD)')
+    plt.grid(zorder=3)
     plt.title('Close Chart to See Results')
     plt.show()
-    return 0
 
 #----------SETTING UP OUR MAIN RUNLOOP WITH BREAK SEQUENCE + Global Variables
 run = True
@@ -111,7 +135,7 @@ while run:
     for k,v in adj_price.items():
         print(f'Your {num_of_shares[k]} shares of {k} would now be worth ${v:,}')
 
-
+    single_stock = [k if len(adj_price.keys())==0 else 'Searched Stock' for k in adj_price.keys()]
     print()
 #----------DETERMINE IF USER WANTS A MATPLOTLIB PLOT
     print(
@@ -120,7 +144,7 @@ while run:
         '---------------------------------------------')
     chart = str(input()).upper()
     if chart == 'Y':
-        showchart(globaldata)
+        showchart(globaldata,single_stock)
     elif chart == 'N':
         break
     print()
