@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock_Calculator Results</title>
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  />
+</head>
+<body style='background-color: cadetblue;'>
+  <div class='header' style="text-align: center;">
+    <h4><a href="http://127.0.0.1:5000/">Return To Home</a></h4>
+    <hr style="height:2px; background-color: black;">
+
+    <h2>Stock Calculator Results</h2>
+    <h3>With an initial investment of ${{amount}}:</h3>
+    <hr style="height:2px; background-color: black;">
+    <div class='results'>
+      {% for i in output_string %}
+      <div>
+        <h4 style='text-align: center;'>{{i}}</h4>
+      </div>
+      {% endfor %}
+      <div>
+        <img src={{chart|safe}}>
+    </div>
+    <div style='text-align: center;'>
+    </div>
+  </div>
+</body>
+</html>
