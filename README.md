@@ -6,6 +6,7 @@
 Using the yfinance and matplotlib libraries, this script takes user inputs (highlighted above) and returns the increase or decrease of an initial investment in any number of equities.
 
 # Prerequisites
+To run the python script Stock_Calc.py
 Install yfinance and matplotlib with pip<br>
 ```
 $ pip install yahoo-finance
@@ -14,8 +15,14 @@ $ pip install yahoo-finance
 ```
 $ python -m pip install -U matplotlib
 ```
+For the Flask Web App Version:
+*All Libraries Above, As Well As:*
+(https://flask.palletsprojects.com/en/1.1.x/installation/)[Flask]
+```
+pip install -U Flask
+```
 
-# How to Use
+# Python Script - Stock_Calc.py
 Download the Stock_Calc.py file, navigate to its directory in bash or open it in your IDE of choice.<br>
 As long as you have the required libraries installed, follow the prompts from the script in your terminal to begin calculating.<br><br>
 
@@ -27,3 +34,13 @@ The first thing you will be asked is to input the ticker symbols you would like 
 Next, you will need to input a date that will represent when you would have bought into the equities listed above. The terminal will output the YYYY-MM-DD format that you need to copy, hyphens included. Please ensure that your input vertically matches the example display printed in the terminal.<br>
 
 Finally, enter the amount you wish you had invested. If you entered more than one ticker, the invested amount will be the same for each.
+
+# Flask Web App - stock_web_app.py
+5.8.2021 - Actively Updated
+* Run stock_web_app.py through Flask
+* Visit your (http://127.0.0.1:5000)[Flask Local Host]
+![flask1](https://user-images.githubusercontent.com/14188580/117540982-5becb100-afd7-11eb-81f8-162e5ecca450.PNG)
+
+![flask2](https://user-images.githubusercontent.com/14188580/117540984-5e4f0b00-afd7-11eb-8ef0-fceee5839017.PNG)
+
+
