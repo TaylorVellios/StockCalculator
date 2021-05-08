@@ -1,46 +1,43 @@
 # stock_app.py
-from logging import debug
-from flask import Flask, render_template, redirect, request, escape
+from ast import Bytes
+from flask import Flask, render_template, redirect, request
+import matplotlib
+import matplotlib.pyplot as plt
+matplotlib.use('Agg')
 import base64
 from io import BytesIO
-import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
-import os
+
+from time import sleep
 import Stock_Funcs
 
 app = Flask(__name__)
+app.config['CACHE_TYPE'] = 'null'
 
-def plot(data, single_stock):
-        data_to_plot = data.reset_index()
-        x_vals = data_to_plot['Date']
+def plot(data):
+    data_to_plot = data
 
-        multi = False
-        try:
-            [float(x) for x in data_to_plot['High']]
-        except:
-            multi=True
+    x_max = 0
+    x_min = 0
+    title_loop = []
+    for h,i in enumerate(data_to_plot.keys()):
+        plt.plot(data_to_plot[i]['Date'], data_to_plot[i]['High'], label=i, linewidth=3)
+        title_loop.append(i)
+        if h==0:
+            x_max = max(data_to_plot[i]['Date'])
+            x_min = min(data_to_plot[i]['Date'])
 
+    plt.legend(fontsize=10, loc='best')
+    plt.title(f"Price Movement for Equities: {'--'.join(title_loop)}")
+    plt.xticks(rotation=35, fontsize=8)
+    plt.xlim(x_min,x_max)
+    plt.ylabel('Price ($USD)')
+    plt.grid(zorder=3)
 
-        plt.figure(figsize=(11,7))
-        if multi==True:
-            for i in data_to_plot['High']:
-                y_val = data_to_plot['High'][i]
-                plt.plot(x_vals, y_val, linewidth=2.5)
-                plt.legend([i for i in data_to_plot['High']], loc='upper left')
-        else:
-            plt.plot(x_vals, data_to_plot['High'], linewidth=2.5)
-            plt.legend(single_stock, loc='upper left')
-
-        plt.xticks(rotation=50)
-        plt.xlim(min([j for i,j in enumerate(x_vals)]),max([j for i,j in enumerate(x_vals)]))
-        plt.ylabel('Price ($USD)')
-        plt.grid(zorder=3)
-        buf = BytesIO()
-        plt.savefig(buf, format='png')
-        data = base64.b64encode(buf.getbuffer()).decode('ascii')
-        return f"'data:image/png;base64,{data}'/"
-
-
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    image = base64.b64encode(buf.getbuffer()).decode('ascii')
+    buf.close()
+    return f"'data:image/png;base64,{image}'/"
 
 @app.route('/')
 def index():
@@ -48,6 +45,8 @@ def index():
 
 @app.route('/calc', methods=['POST'])
 def stock_calc():
+
+
     form = request.form
     ticker1 = form['ticker1']
     ticker2 = form['ticker2']
@@ -61,8 +60,7 @@ def stock_calc():
     tickers = [ticker1, ticker2, ticker3, ticker4]
 
     output_string, data_to_chart = Stock_Funcs.calculate(tickers, start, amount)
-    single_stock = [k if len(tickers)==1 else 'Searched Stock' for k in tickers]
-    chart = plot(data_to_chart, single_stock)
+    chart = plot(data_to_chart)
 
     return render_template('query_form.html', output_string=output_string, amount=print_amount, chart=chart)
 
