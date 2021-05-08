@@ -39,6 +39,7 @@ Finally, enter the amount you wish you had invested. If you entered more than on
 5.8.2021 - Actively Updated
 * Run stock_web_app.py through Flask
 * Visit your (http://127.0.0.1:5000)[Flask Local Host]
+
 ![flask1](https://user-images.githubusercontent.com/14188580/117540982-5becb100-afd7-11eb-81f8-162e5ecca450.PNG)
 
 ![flask2](https://user-images.githubusercontent.com/14188580/117540984-5e4f0b00-afd7-11eb-8ef0-fceee5839017.PNG)
