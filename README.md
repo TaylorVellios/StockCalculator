@@ -17,7 +17,7 @@ $ python -m pip install -U matplotlib
 ```
 For the Flask Web App Version:
 *All Libraries Above, As Well As:*
-(https://flask.palletsprojects.com/en/1.1.x/installation/)[Flask]
+[Flask](https://flask.palletsprojects.com/en/1.1.x/installation/)
 ```
 pip install -U Flask
 ```
@@ -38,7 +38,7 @@ Finally, enter the amount you wish you had invested. If you entered more than on
 # Flask Web App - stock_web_app.py
 5.8.2021 - Actively Updated
 * Run stock_web_app.py through Flask
-* Visit your (http://127.0.0.1:5000)[Flask Local Host]
+* Visit your [Flask Local Host](http://127.0.0.1:5000)
 
 ![flask1](https://user-images.githubusercontent.com/14188580/117540982-5becb100-afd7-11eb-81f8-162e5ecca450.PNG)
 
